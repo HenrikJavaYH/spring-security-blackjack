@@ -24,7 +24,7 @@ public class AppSecurityConfig {
                                 "/js/**"
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/game/**").hasRole("USER")
+                        .requestMatchers("/game/**").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

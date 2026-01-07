@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Blackjack</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header>
+    <nav>
+        <a th:href="@{/}">Home</a>
+
+        <span sec:authorize="isAuthenticated()">
+            <a th:href="@{/game}">Play</a>
+            <a th:href="@{/logout}">Logout</a>
+        </span>
+
+        <span sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/register}">Register</a>
+        </span>
+
+        <span sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/admin}">Admin</a>
+        </span>
+    </nav>
+</header>
+
+<main>
+    <div th:replace="${content}"></div>
+</main>
+
+</body>
+</html>
