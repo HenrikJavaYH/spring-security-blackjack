@@ -4,9 +4,9 @@
 
 <section>
     <div class="card">
-        <h1>Login</h1>
+        <h1>Register</h1>
 
-        <form th:action="@{/login}" method="post">
+        <form th:action="@{/register}" method="post">
             <div style="margin-top: 10px;">
                 <input type="text" name="username" placeholder="Username" required
                        style="padding:8px; width:90%; border-radius:6px; border:none; font-size:1em;">
@@ -17,12 +17,12 @@
             </div>
 
             <div style="margin-top: 20px;">
-                <button type="submit" class="start">Login</button>
+                <button type="submit" class="start">Register</button>
             </div>
         </form>
 
-        <p style="margin-top: 15px;">Don't have an account?
-            <a th:href="@{/register}" style="color:#f1c40f; text-decoration:underline;">Register here</a>
+        <p style="margin-top: 15px;">Already have an account?
+            <a th:href="@{/login}" style="color:#f1c40f; text-decoration:underline;">Login here</a>
         </p>
     </div>
 </section>

@@ -19,12 +19,14 @@ public class AppSecurityConfig {
                         .requestMatchers(
                                 "/",
                                 "/login",
+                                "/logout-success",
                                 "/register",
                                 "/css/**",
                                 "/js/**"
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/game/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/games").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -33,7 +35,8 @@ public class AppSecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessUrl("/logout-success")
+
                 );
 
         return http.build();

@@ -35,7 +35,7 @@ public class CustomUser {
     @Column(nullable = false)
     private Role role;
 
-    protected CustomUser() {}
+    public CustomUser() {}
 
     public CustomUser(String username, String password, Role role) {
         this.username = username;

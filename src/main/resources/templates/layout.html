@@ -1,29 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      th:fragment="layout(content)">
+
 <head>
-    <title>Blackjack</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta charset="UTF-8">
+    <title th:text="${title} ?: 'Awesome Blackjack'"></title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0b3d2e;
+            color: white;
+            margin: 0;
+        }
+
+        header {
+            background-color: #146b4f;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .card {
+            margin: 40px auto;
+            width: 600px;
+            padding: 20px;
+            border-radius: 12px;
+            background-color: #146b4f;
+        }
+
+        button {
+            padding: 10px 16px;
+            margin: 8px;
+            font-size: 1em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
 
 <header>
-    <nav>
-        <a th:href="@{/}">Home</a>
+    <h2>♠ Awesome Blackjack</h2>
 
-        <span sec:authorize="isAuthenticated()">
-            <a th:href="@{/game}">Play</a>
-            <a th:href="@{/logout}">Logout</a>
-        </span>
+    <nav th:if="${#authorization.expression('isAuthenticated()')}">
+        <a th:href="@{/game}">Play</a>
+        <a th:href="@{/games}">History</a>
+        <a th:href="@{/stats}">Stats</a>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit">Logout</button>
+        </form>
 
-        <span sec:authorize="!isAuthenticated()">
-            <a th:href="@{/login}">Login</a>
-            <a th:href="@{/register}">Register</a>
-        </span>
+    </nav>
 
-        <span sec:authorize="hasRole('ADMIN')">
-            <a th:href="@{/admin}">Admin</a>
-        </span>
+    <nav th:unless="${#authorization.expression('isAuthenticated()')}">
+        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/register}">Register</a>
     </nav>
 </header>
 

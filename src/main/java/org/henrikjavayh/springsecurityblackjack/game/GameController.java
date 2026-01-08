@@ -1,6 +1,7 @@
 package org.henrikjavayh.springsecurityblackjack.game;
 
 import org.henrikjavayh.springsecurityblackjack.service.GameService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +18,11 @@ public class GameController {
         this.gameService = gameService;
     }
 
-
     @GetMapping
     public String game(Model model) {
         model.addAttribute("game", gameService.getGame());
         return "game";
     }
-
 
     @PostMapping("/start")
     public String startGame() {
@@ -31,17 +30,22 @@ public class GameController {
         return "redirect:/game";
     }
 
-
     @PostMapping("/hit")
     public String hit() {
         gameService.hit();
         return "redirect:/game";
     }
 
-
     @PostMapping("/stand")
-    public String stand() {
+    public String stand(
+            @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal
+    ) {
         gameService.stand();
+
+        if (gameService.getGame().isGameOver()) {
+            gameService.finishGame(principal.getUsername());
+        }
+
         return "redirect:/game";
     }
 

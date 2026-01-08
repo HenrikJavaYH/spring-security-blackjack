@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Games</title>
+    <style>
+        body {
+            background-color: #0b3d2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        table {
+            margin: 40px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ffffff33;
+        }
+
+        th {
+            background-color: #146b4f;
+        }
+
+        tr:hover {
+            background-color: #1f7a5c;
+        }
+
+        .WIN { color: #2ecc71; }
+        .LOSS { color: #e74c3c; }
+        .DRAW { color: #f1c40f; }
+    </style>
+</head>
+<body>
+
+<h1>My Game History</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Result</th>
+        <th>Your Score</th>
+        <th>Dealer Score</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="game : ${games}">
+        <td th:text="${#temporals.format(game.playedAt, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${game.result}"
+            th:class="${game.result}"></td>
+        <td th:text="${game.playerScore}"></td>
+        <td th:text="${game.dealerScore}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/game" style="color:white;">⬅ Back to game</a>
+
+</body>
+</html>

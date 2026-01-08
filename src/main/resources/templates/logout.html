@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::section})}">
+
+<section>
+    <div class="card">
+        <h1>You are now logged out 👋</h1>
+        <p>Thanks for playing Awesome Blackjack!</p>
+
+        <a href="/login">
+            <button>Login again</button>
+        </a>
+
+        <a href="/">
+            <button>Back to welcome page</button>
+        </a>
+    </div>
+</section>
+
+</html>
